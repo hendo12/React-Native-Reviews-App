@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, FlatList, Modal, StyleSheet } from 'react-native';
-import globalStyles from '../styles/global';
+import globalStyles from '../styles/global.js';
 import Card from '../shared/card';
 import { MaterialIcons } from '@expo/vector-icons'
+import ReviewForm from './ReviewForm';
 
 const Home = ({ navigation }) => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -24,7 +25,8 @@ const Home = ({ navigation }) => {
                         onPress={() => setModalOpen(false)}
                         style={{...styles.modalToggle, ...styles.modalClose}}
                     />
-                    <Text>Hello from the modal</Text>
+                    <ReviewForm />
+                    <Text>test</Text>
                 </View>
             </Modal>
             <MaterialIcons 
@@ -54,7 +56,7 @@ export default Home;
 
 const styles = StyleSheet.create({
     modalContent: {
-        marginTop: 60, 
+        marginTop: 30, 
         flex: 1
     }, 
     modalToggle: {
