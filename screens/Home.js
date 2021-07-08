@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, FlatList, Modal, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, FlatList, Modal, StyleSheet, 
+TouchableWithoutFeedback, Keyboard } from 'react-native';
 import globalStyles from '../styles/global.js';
 import Card from '../shared/card';
 import { MaterialIcons } from '@expo/vector-icons'
@@ -13,21 +14,31 @@ const Home = ({ navigation }) => {
         { title: 'Not So "Final" Fantasy', rating: 3, body: 'lorem ipsum', key: '3' },
     ]);
 
+    const addReview = (review) => {
+        review.key = Math.random().toString();
+        setReviews((currentReviews) => {
+            return [review, ...currentReviews]
+        });
+        setModalOpen(false);
+    }
+
     console.log(reviews);
 
     return (
         <View style={globalStyles.container}>
             <Modal visible={modalOpen}>
-                <View style={styles.modalContent}>
-                    <MaterialIcons 
-                        name='close'
-                        size={24}
-                        onPress={() => setModalOpen(false)}
-                        style={{...styles.modalToggle, ...styles.modalClose}}
-                    />
-                    <ReviewForm />
-                    <Text>test</Text>
-                </View>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={styles.modalContent}>
+                        <MaterialIcons 
+                            name='close'
+                            size={24}
+                            onPress={() => setModalOpen(false)}
+                            style={{...styles.modalToggle, ...styles.modalClose}}
+                        />
+                        <ReviewForm addReview={addReview} />
+                        <Text>test</Text>
+                    </View>
+                </TouchableWithoutFeedback>
             </Modal>
             <MaterialIcons 
                 name='add'
